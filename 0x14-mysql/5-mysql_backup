@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-# script to add backup and compress for sql dbs
-mysqldump --all-databases -uroot -p"$1" > backup.sql
-tar -cvzf "$(date +%d-%m-%Y).tar.gz" backup.sql
+### Dumps all MySQL databases, compresses to tar.gz
+### $1 = database password
+now=$(date +"%d-%m-%Y")
+mysqldump -u root -p"$1" --all-databases > backup.sql
+tar -zcf "$now".tar.gz ./backup.sql
